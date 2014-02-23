@@ -6,8 +6,10 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var login = require('./routes/login');
 var http = require('http');
 var path = require('path');
+
 
 var app = express();
 
@@ -19,11 +21,12 @@ app.set('view engine','html');
 app.engine('html',require('ejs').__express);
 
 app.use(express.favicon());
-app.use(express.logger('dev'));
+//app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
+//app.use(express.bodyParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -36,6 +39,8 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/admin/plogin',login.forwad);
+app.post('/admin/login',login.adminlogin);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
