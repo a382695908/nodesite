@@ -9,6 +9,7 @@ var user = require('./routes/user');
 var login = require('./routes/login');
 var http = require('http');
 var path = require('path');
+var engines = require('consolidate');
 
 
 var app = express();
@@ -18,7 +19,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
 app.set('view engine','html');
-app.engine('html',require('ejs').__express);
+app.engine('html', engines.jqtpl);
 
 app.use(express.favicon());
 //app.use(express.logger('dev'));
