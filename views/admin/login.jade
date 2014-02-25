@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/js/easyui/themes/default/easyui.css')
+        link(rel='stylesheet', href='/js/easyui/themes/icon.css')
+        script(type='text/javascript',src='/js/easyui/jquery.min.js')
+        script(type='text/javascript',src='/js/easyui/jquery.easyui.min.js')
+
+        body
+            h2  后台登录
+              div(style='margin：0px auto;')
+                div.easyui-panel(title='登录',style='width:400px')
+                    div(style='padding:10px 0 10px 60px')
+                        form.ff(method='post')
+                            table
+                                tr
+                                    td 用户名：
+                                    td
+                                        input.easyui-validatebox(type='text',name='username',data-options='required:true')
+                                tr
+                                    td  密码：
+                                    td
+                                        input.easyui-validatebox(type='text',name='pwd',data-options='required:true')
+                    div(style='text-align:center;padding:5px')
+                        a.easyui-linkbutton(href='javascript:void(0)',onclick='submitForm()') 登录
+                        a.easyui-linkbutton(href='javascript:void(0)',onclick='clearForm()') 清除
