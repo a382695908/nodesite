@@ -9,7 +9,6 @@ var user = require('./routes/user');
 var login = require('./routes/login');
 var http = require('http');
 var path = require('path');
-var engines = require('consolidate');
 
 
 var app = express();
@@ -17,9 +16,8 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
-app.set('view engine','html');
-app.engine('html', engines.jqtpl);
+app.set('view engine', 'jade');
+app.engine('jade', require('jade').__express);
 
 app.use(express.favicon());
 //app.use(express.logger('dev'));
@@ -40,7 +38,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/admin/plogin',login.forwad);
+app.get('/admin',login.forwad);
 app.post('/admin/login',login.adminlogin);
 
 http.createServer(app).listen(app.get('port'), function(){
