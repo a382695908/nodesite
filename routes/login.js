@@ -5,6 +5,7 @@
 var mongo = require('./mongo');
 
 exports.adminlogin = function(req, res){
+    console.log("do login");
     var username = req.param('username');
     var pwd = req.param('pwd');
     var userModel = mongo.userModel('user');
@@ -12,13 +13,8 @@ exports.adminlogin = function(req, res){
         if(error) {
             console.log(error);
         } else {
-           if(result === 1){
-               res.render('admin/index',{username:username,pwd:pwd});
-           }else{
-               res.render('admin/login',{username:username,pwd:pwd});
-           }
+            res.send({msg:'用户不存在'});
         }
-
     });
 };
 
