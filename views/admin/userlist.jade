@@ -1,0 +1,24 @@
+doctype html
+
+html
+
+    body
+        table#dg(title="用户列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",idField="ID_",toolbar="#toolbar")
+            thead
+                tr
+                    th(field="username",width="50") 用户名
+                    th(field="pwd",width="50") 密码
+
+        div#toolbar
+             a(class="easyui-linkbutton",iconCls="icon-add",plain="true")新增
+
+
+    script(type='text/javascript').
+                 $(function(){
+                    $('#dg').edatagrid({
+                            url: 'get_users.php',
+                            saveUrl: 'save_user.php',
+                            updateUrl: 'update_user.php',
+                            destroyUrl: 'destroy_user.php'
+                    });
+                 });

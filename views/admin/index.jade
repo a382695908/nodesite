@@ -9,10 +9,32 @@ html
         link(rel='stylesheet', href='/js/easyui/themes/icon.css')
         script(type='text/javascript',src='/js/easyui/jquery.min.js')
         script(type='text/javascript',src='/js/easyui/jquery.easyui.min.js')
+        script(type='text/javascript',src='/js/easyui/jquery.edatagrid.js')
 
 
 
     body.easyui-layout
-        div(data-options="region:'north',title:'欢送#{session.logininfo.username}',split:true",style='height:30px;')
-        div(data-options="region:'west',title:'菜单管理',split:true",style='width:300px')
-        div(data-options="region:'center',title:'模块'",style="padding:5px;background:#eee;")
+        div(data-options="region:'north',title:'欢迎#{session.logininfo.username}',split:true",style='height:30px;')
+        div(data-options="region:'west',title:'',split:true",style='width:300px')
+            div.easyui-accordion
+                div(title='系统管理',style="overflow:auto;padding:10px;")
+                    ul
+                        li
+                            div.selected
+                                a(href="#",onclick="javascript:user()") 用户管理
+
+        div#center(data-options="region:'center'",style="padding:5px;background:#eee;")
+                div#ctt(class="easyui-tabs")
+                    div(title="信息",data-options="closable:true")
+                        h1 欢迎登录后台,#{session.logininfo.username}
+
+
+        script(type='text/javascript').
+           function user(){
+                $('#ctt').tabs('add',{
+                    title: '用户管理',
+                    selected: true,
+                    href:'/admin/userlist',
+                    closable:true
+                });
+           }

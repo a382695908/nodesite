@@ -4,7 +4,7 @@
 
 var mongo = require('./mongo');
 
-exports.adminlogin = function(req, res){
+exports.adminLogin = function(req, res){
     var username = req.param('username');
     var pwd = req.param('pwd');
     var userModel = mongo.userModel('user');
@@ -23,11 +23,11 @@ exports.adminlogin = function(req, res){
     });
 };
 
-exports.forwad = function(req, res){
+exports.adminLoginPage = function(req, res){
     res.render('admin/login');
 };
 
-exports.index = function(req, res){
+exports.adminLoginForward = function(req, res){
     res.render('admin/index');
 };
 

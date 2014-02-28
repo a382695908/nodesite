@@ -7,7 +7,7 @@ html
         script(type='text/javascript',src='/js/easyui/jquery.min.js')
         script(type='text/javascript',src='/js/easyui/jquery.easyui.min.js')
 
-        body
+    body
             div(style='width:500px;margin:300px auto;')
                 div.easyui-panel(title='登录',style='width:400px')
                     div(style='padding:10px 0 10px 60px')
@@ -24,7 +24,9 @@ html
                     div(style='text-align:center;padding:5px')
                         a.easyui-linkbutton(href='javascript:void(0)',onclick='submitForm()') 登录
                         a.easyui-linkbutton(href='javascript:void(0)',onclick='clearForm()') 清除
-                    script(type='text/javascript').
+
+
+            script(type='text/javascript').
                         function submitForm(){
                            $('#ff').submit();
                         }
