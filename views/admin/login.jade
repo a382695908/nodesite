@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title= title
+        title 后台登录
         link(rel='stylesheet', href='/js/easyui/themes/default/easyui.css')
         link(rel='stylesheet', href='/js/easyui/themes/icon.css')
         script(type='text/javascript',src='/js/easyui/jquery.min.js')
@@ -40,6 +40,10 @@ html
                             },
                             success:function(data){
                                 var data = eval('(' + data + ')');
-                                alert(data.msg);
+                                if(data.login === 0){
+                                   $.messager.alert('登录信息','用户名和密码不存在');
+                                }else if(data.login === 1){
+                                   window.location.href="/admin/index";
+                                }
                             }
                         });

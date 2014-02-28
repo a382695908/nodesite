@@ -5,7 +5,6 @@
 var mongo = require('./mongo');
 
 exports.adminlogin = function(req, res){
-    console.log("do login");
     var username = req.param('username');
     var pwd = req.param('pwd');
     var userModel = mongo.userModel('user');
@@ -13,12 +12,22 @@ exports.adminlogin = function(req, res){
         if(error) {
             console.log(error);
         } else {
-            res.send({msg:'用户不存在'});
+            if(result === 0){
+                res.send({login:0});
+            }else if(result ===1 ){
+                req.session.logininfo = {username:username,pwd:pwd};
+                res.locals.session = req.session
+                res.send({login:1});
+            }
         }
     });
 };
 
 exports.forwad = function(req, res){
     res.render('admin/login');
+};
+
+exports.index = function(req, res){
+    res.render('admin/index');
 };
 
