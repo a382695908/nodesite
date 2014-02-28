@@ -1,9 +1,7 @@
 doctype html
-
 html
-
     body
-        table#dg(title="用户列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",idField="ID_",toolbar="#toolbar")
+        table#dg(title="用户列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",idField="_id",toolbar="#toolbar",method="post")
             thead
                 tr
                     th(field="username",width="50") 用户名
@@ -12,13 +10,13 @@ html
         div#toolbar
              a(class="easyui-linkbutton",iconCls="icon-add",plain="true")新增
 
-
-    script(type='text/javascript').
-                 $(function(){
+        script(type='text/javascript').
+               $(function(){
                     $('#dg').edatagrid({
-                            url: 'get_users.php',
-                            saveUrl: 'save_user.php',
-                            updateUrl: 'update_user.php',
-                            destroyUrl: 'destroy_user.php'
-                    });
-                 });
+                        url: '/admin/userlist',
+                        saveUrl: 'save_user.php',
+                        updateUrl: 'update_user.php',
+                        destroyUrl: 'destroy_user.php'
+                     });
+               });
+

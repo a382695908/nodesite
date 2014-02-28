@@ -52,7 +52,8 @@ app.get('/admin',adminlogin.adminLoginPage);
 app.post('/admin/login',adminlogin.adminLogin);
 app.get('/admin/index',adminlogin.adminLoginForward);
 
-app.get('/admin/userlist',adminuser.adminUserList);
+app.get('/admin/adminuserindex',adminuser.adminUserIndex)
+app.post('/admin/userlist',adminuser.adminUserList);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
