@@ -31,10 +31,16 @@ html
 
         script(type='text/javascript').
            function user(){
-                $('#ctt').tabs('add',{
-                    title: '用户管理',
-                    selected: true,
-                    href:'/admin/adminUserIndex',
-                    closable:true
-                });
-           }
+                var userlist = $('#ctt').tabs('exists','用户管理');
+                if(userlist){
+                     $('#ctt').tabs('select','用户管理');
+                }else{
+                     $('#ctt').tabs('add',{
+                               title: '用户管理',
+                               selected: true,
+                               href:'/admin/adminUserIndex',
+                               closable:true
+                     });
+
+                }
+            }

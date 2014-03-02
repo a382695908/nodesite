@@ -4,19 +4,20 @@ html
         table#dg(title="用户列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",idField="_id",toolbar="#toolbar",method="post")
             thead
                 tr
-                    th(field="username",width="50") 用户名
-                    th(field="pwd",width="50") 密码
-
+                    th(field="username",width="100",editor="{type:'validatebox',options:{required:true}}") 用户名
+                    th(field="pwd",width="100",editor="{type:'validatebox',options:{required:true}}") 密码
         div#toolbar
-             a(class="easyui-linkbutton",iconCls="icon-add",plain="true")新增
-
+            a(href="javascript:void(0)",onclick="javascript:$('#dg').edatagrid('addRow')",class="easyui-linkbutton",iconCls="icon-add",plain="true")新增
+            a(href="javascript:void(0)",onclick="javascript:$('#dg').edatagrid('destroyRow')",class="easyui-linkbutton",iconCls="icon-remove",plain="true")删除
+            a(href="javascript:void(0)",onclick="javascript:$('#dg').edatagrid('saveRow')",class="easyui-linkbutton",iconCls="icon-add",plain="true")保存
+            a(href="javascript:void(0)",onclick="javascript:$('#dg').edatagrid('addRow')",class="easyui-linkbutton",iconCls="icon-undo",plain="true")取消
         script(type='text/javascript').
                $(function(){
                     $('#dg').edatagrid({
                         url: '/admin/userlist',
-                        saveUrl: 'save_user.php',
-                        updateUrl: 'update_user.php',
-                        destroyUrl: 'destroy_user.php'
+                        saveUrl: '/admin/adduser',
+                        updateUrl: '/admin/updateuser',
+                        destroyUrl: '/admin/deluser'
                      });
                });
 

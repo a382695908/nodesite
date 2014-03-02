@@ -54,6 +54,10 @@ app.get('/admin/index',adminlogin.adminLoginForward);
 
 app.get('/admin/adminuserindex',adminuser.adminUserIndex)
 app.post('/admin/userlist',adminuser.adminUserList);
+app.post('/admin/adduser',adminuser.adminAddUser);
+app.post('/admin/deluser',adminuser.adminDelUser);
+app.post('/admin/updateuser',adminuser.adminUpdateUser);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
