@@ -8,6 +8,8 @@ var routes = require('./routes');
 
 var adminlogin = require('./routes/admin_login.js');
 var adminuser = require('./routes/admin_user.js');
+var adminproduct = require('./routes/admin_product.js');
+
 var http = require('http');
 var path = require('path');
 
@@ -52,11 +54,14 @@ app.get('/admin',adminlogin.adminLoginPage);
 app.post('/admin/login',adminlogin.adminLogin);
 app.get('/admin/index',adminlogin.adminLoginForward);
 
-app.get('/admin/adminuserindex',adminuser.adminUserIndex)
+app.get('/admin/userindex',adminuser.adminUserIndex)
 app.post('/admin/userlist',adminuser.adminUserList);
 app.post('/admin/adduser',adminuser.adminAddUser);
 app.post('/admin/deluser',adminuser.adminDelUser);
 app.post('/admin/updateuser',adminuser.adminUpdateUser);
+
+app.get('/admin/productindex',adminproduct.adminProductIndex);
+app.post('/admin/productlist',adminproduct.adminProductList);
 
 
 http.createServer(app).listen(app.get('port'), function(){
