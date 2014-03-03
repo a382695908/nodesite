@@ -4,6 +4,8 @@
  */
 var mongo = require('./mongo');
 
+var formidable = require('formidable');
+
 
 exports.adminProductIndex = function(req,res){
     res.render("admin/productlist");
@@ -26,14 +28,22 @@ exports.adminProductList = function(req, res){
 };
 
 exports.adminAddProduct = function(req,res){
-    var productModel = mongo.productModel('product');
-    productModel.create({title:req.param('title'),desc:req.param('desc'),price:req.param('price')},function(error,result){
-        if(error){
-            console.log(error);
-            res.send({sucess:false})
-        }
-        res.send({sucess:true});
-    })
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "public/upload";
+    form.keepExtensions  = true;
+
+    form.parse(req, function(err, fields, files) {
+        var pic = files.upload.path;
+        var newpic = pic.replace("public","").replace(/\\/g,"/");
+        var productModel = mongo.productModel('product');
+        productModel.create({title:fields.title,desc:fields.desc,price:fields.price,pic:newpic},function(error,result){
+            if(error){
+                console.log(error);
+                res.send({sucess:false})
+            }
+            res.send({sucess:true});
+        })
+    });
 }
 
 exports.adminDelProduct = function(req,res){

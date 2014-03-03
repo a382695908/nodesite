@@ -15,12 +15,14 @@ html
                     ul
                         li
                             div.selected
-                                a(href="#",onclick="javascript:user()") 用户管理
+                                a(href="#",onclick="javascript:user()")
+                                    h2(style="color:#0099FF;") 用户管理
                 div(title='内容管理',style="overflow:auto;padding:10px;")
                     ul
                         li
                             div.selected
-                                a(href="#",onclick="javascript:product()") 产品管理
+                                a(href="#",onclick="javascript:product()")
+                                    h2(style="color:#0099FF;") 产品管理
 
         div#center(data-options="region:'center'",style="padding:5px;background:#eee;")
                 div#ctt(class="easyui-tabs")
@@ -28,7 +30,7 @@ html
                         h1 欢迎登录后台,#{session.logininfo.username}
 
 
-        script(type='text/javascript').
+    script(type='text/javascript').
            function user(){
                 var userlist = $('#ctt').tabs('exists','用户管理');
                 if(userlist){
@@ -59,3 +61,7 @@ html
                 }
             }
 
+
+     style(type="text/css").
+         a{text-decoration:none}
+         li {list-style-type:none;}

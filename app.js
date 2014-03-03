@@ -36,7 +36,6 @@ app.use(function(req, res, next){
     next();
 });
 app.use(app.router);
-//app.use(express.bodyParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
