@@ -62,7 +62,9 @@ app.post('/admin/updateuser',adminuser.adminUpdateUser);
 
 app.get('/admin/productindex',adminproduct.adminProductIndex);
 app.post('/admin/productlist',adminproduct.adminProductList);
-
+app.post('/admin/addproduct',adminproduct.adminAddProduct);
+app.post('/admin/delproduct',adminproduct.adminDelProduct);
+app.post('/admin/updateproduct',adminproduct.adminUpdateProduct);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

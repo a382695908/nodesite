@@ -15,46 +15,48 @@ exports.adminProductList = function(req, res){
         if(count === 0){
             res.send({"total":0,"rows":[]});
         }else{
-             var page = req.param('page');
-             var rows = req.param('rows');
-             productModel.find(null,null,{skip:(page-1)*rows,limit:rows},function(error,result){
-                 if(error) console.log(error);
-                 res.send({"total":count,"rows":result});
-             })
+            var page = req.param('page');
+            var rows = req.param('rows');
+            productModel.find(null,null,{skip:(page-1)*rows,limit:rows},function(error,result){
+                if(error) console.log(error);
+                res.send({"total":count,"rows":result});
+            })
         }
     });
 };
 
 exports.adminAddProduct = function(req,res){
-    var userModel = mongo.userModel('user');
-    userModel.create({username:req.param('username'),pwd:req.param('pwd')},function(error,result){
+    var productModel = mongo.productModel('product');
+    productModel.create({title:req.param('title'),desc:req.param('desc'),price:req.param('price')},function(error,result){
         if(error){
-            console.log(error)
+            console.log(error);
+            res.send({sucess:false})
         }
-        res.send(result);
+        res.send({sucess:true});
     })
 }
 
 exports.adminDelProduct = function(req,res){
-    var userModel = mongo.userModel('user');
-    userModel.remove({_id:req.param('id')},function(error){
+    var productModel = mongo.productModel('product');
+    productModel.remove({_id:req.param('id')},function(error){
         if(error) {
             console.log(error);
-            res.send({"success":true});
-        }else{
             res.send({"success":false});
+        }else{
+            res.send({"success":true});
         }
     })
 }
 
 
 exports.adminUpdateProduct = function(req,res){
-    var userModel = mongo.userModel('user');
-    userModel.findByIdAndUpdate(req.param('id'),{username:req.param('username'),pwd:req.param('pwd')},function(error,result){
+    var productModel = mongo.productModel('product');
+    productModel.update({_id:req.param('id')},{title:req.param('title'),desc:req.param('desc'),price:req.param('price')},function(error,result){
         if(error) {
             console.log(error);
+            res.send({sucess:false})
         }else{
-            res.send(result);
+            res.send({sucess:true})
         }
     })
 }

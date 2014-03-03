@@ -1,13 +1,110 @@
-table#productlist(title="商品列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",toolbar="#productlisttoolbar",url="/admin/productlist")
+table#productlist(title="商品列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",toolbar="#productlisttoolbar",url="/admin/productlist",idField="_id")
     thead
         tr
-            th(field="title",editor="{type:'validatebox',options:{required:true}}") 商品名称
-            th(field="desc",editor="{type:'validatebox',options:{required:true}}") 商品描述
-            th(field="price",editor="{type:'validatebox',options:{required:true}}") 商品价格
+            th(field="title") 商品名称
+            th(field="desc") 商品描述
+            th(field="price") 商品价格
 div#productlisttoolbar
-    a(href="javascript:void(0)",onclick="",class="easyui-linkbutton",iconCls="icon-add",plain="true") 新增
-    a(href="javascript:void(0)",onclick="",class="easyui-linkbutton",iconCls="icon-remove",plain="true") 删除
-    a(href="javascript:void(0)",onclick="",class="easyui-linkbutton",iconCls="icon-add",plain="true") 保存
-    a(href="javascript:void(0)",onclick="",class="easyui-linkbutton",iconCls="icon-undo",plain="true") 取消
-    script(type='text/javascript').
+    a(href="javascript:void(0)",onclick="javascript:newProduct()",class="easyui-linkbutton",iconCls="icon-add",plain="true") 新增
+    a(href="javascript:void(0)",onclick="javascript:editProduct()",class="easyui-linkbutton",iconCls="icon-edit",plain="true") 修改
+    a(href="javascript:void(0)",onclick="javascript:delProduct()",class="easyui-linkbutton",iconCls="icon-remove",plain="true") 删除
 
+div#addproduct(class="easyui-dialog",style="width:400px;height:280px;padding:10px 20px",closed="true",buttons="#addproductbutton")
+    div.ftitle 商品信息
+    form#addproductform(method="post",novalidate)
+        div.fitem
+            label 商品名称：
+            input(name="title",class="easyui-validatebox",required="true")
+        div.fitem
+            label 商品描述：
+            textarea(name="desc",class="easyui-validatebox",required="true")
+        div.fitem
+            label 商品价格：
+            input(name="price",class="easyui-validatebox",required="true")
+div#addproductbutton
+    a(href="javascript:void(0)",class="easyui-linkbutton",iconCls="icon-ok",onclick="javascript:saveProduct()") 保存
+    a(href="javascript:void(0)",class="easyui-linkbutton",iconCls="icon-cancel",onclick="javascript:$('#addproduct').dialog('close')") 取消
+script(type='text/javascript').
+    var url;
+    function newProduct(){
+        $('#addproduct').dialog('open').dialog('setTitle','New User');
+        $('#addproductform').form('clear');
+        url = '/admin/addproduct';
+    }
+
+    function saveProduct() {
+        $('#addproductform').form('submit', {
+            url: url,
+            onSubmit: function() {
+                return $(this).form('validate');
+            },
+            success: function(result) {
+                var result = eval('(' + result + ')');
+                if (result.sucess) {
+                    $('#addproduct').dialog('close'); // close the dialog
+                    $('#productlist').datagrid('reload'); // reload the user data
+                }else {
+                    $.messager.show({
+                        title: '错误',
+                        msg: 保存失败
+                    });
+                }
+            }
+        });
+    }
+
+    function editProduct() {
+        var row = $('#productlist').datagrid('getSelected');
+        if (row) {
+            $('#addproduct').dialog('open').dialog('setTitle', 'Edit User');
+            $('#addproductform').form('load', row);
+            url = '/admin/updateproduct?id=' + row._id;
+        }
+    }
+
+    function delProduct() {
+        var row = $('#productlist').datagrid('getSelected');
+        if (row) {
+            $.messager.confirm('确认', '确定删除产品吗?',
+            function(r) {
+                if (r) {
+                    $.post('/admin/delproduct', {
+                        id: row._id
+                    },
+                    function(result) {
+                        if (result.success) {
+                            $('#productlist').datagrid('reload'); // reload the user data
+                        } else {
+                            $.messager.show({ // show error message
+                                title: '错误',
+                                msg: '删除失败'
+                            });
+                        }
+                    },
+                    'json');
+                }
+            });
+        }
+    }
+style(type='text/css').
+    #addproductform {
+        margin: 0;
+        padding: 10px 30px;
+    }
+
+    .ftitle {
+        font-size: 14px;
+        font-weight: bold;
+        padding: 5px 0;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .fitem {
+        margin-bottom: 5px;
+    }
+
+    .fitem label {
+        display: inline-block;
+        width: 80px;
+    }
