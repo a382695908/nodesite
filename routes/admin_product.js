@@ -60,14 +60,30 @@ exports.adminDelProduct = function(req,res){
 
 
 exports.adminUpdateProduct = function(req,res){
-    var productModel = mongo.productModel('product');
-    productModel.update({_id:req.param('id')},{title:req.param('title'),desc:req.param('desc'),price:req.param('price')},function(error,result){
-        if(error) {
-            console.log(error);
-            res.send({sucess:false})
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "public/upload";
+    form.keepExtensions  = true;
+
+    form.parse(req, function(err, fields, files) {
+        var pic = files.upload.path;
+        var updatePara;
+        if(!pic){
+            updatePara = {title:fields.title,desc:fields.desc,price:fields.price}
         }else{
-            res.send({sucess:true})
+            var pic = files.upload.path;
+            var newpic = pic.replace("public","").replace(/\\/g,"/");
+            updatePara = {title:fields.title,desc:fields.desc,price:fields.price,pic:newpic};
         }
-    })
+        var productModel = mongo.productModel('product');
+        productModel.update({_id:req.param('id')},updatePara,function(error,result){
+            if(error) {
+                console.log(error);
+                res.send({sucess:false})
+            }else{
+                res.send({sucess:true})
+            }
+        })
+    });
+
 }
 
