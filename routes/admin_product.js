@@ -19,10 +19,14 @@ exports.adminProductList = function(req, res){
         }else{
             var page = req.param('page');
             var rows = req.param('rows');
-            productModel.find(null,null,{skip:(page-1)*rows,limit:rows},function(error,result){
-                if(error) console.log(error);
+            productModel.find(null,null,{skip:(page-1)*rows,limit:rows}).populate({path:'kind',model:'kind'}).exec(function (err, result) {
+                if(err) console.log(err);
                 res.send({"total":count,"rows":result});
             })
+            /**
+            productModel.find(null,null,{skip:(page-1)*rows,limit:rows},function(error,result){
+            })
+            **/
         }
     });
 };
@@ -36,7 +40,7 @@ exports.adminAddProduct = function(req,res){
         var pic = files.upload.path;
         var newpic = pic.replace("public","").replace(/\\/g,"/");
         var productModel = mongo.productModel('product');
-        productModel.create({title:fields.title,desc:fields.desc,price:fields.price,pic:newpic},function(error,result){
+        productModel.create({title:fields.title,desc:fields.desc,price:fields.price,pic:newpic,kind:fields.kind},function(error,result){
             if(error){
                 console.log(error);
                 res.send({sucess:false})
@@ -60,14 +64,30 @@ exports.adminDelProduct = function(req,res){
 
 
 exports.adminUpdateProduct = function(req,res){
-    var productModel = mongo.productModel('product');
-    productModel.update({_id:req.param('id')},{title:req.param('title'),desc:req.param('desc'),price:req.param('price')},function(error,result){
-        if(error) {
-            console.log(error);
-            res.send({sucess:false})
+    var form = new formidable.IncomingForm();
+    form.uploadDir = "public/upload";
+    form.keepExtensions  = true;
+
+    form.parse(req, function(err, fields, files) {
+        var pic = files.upload.path;
+        var updatePara;
+        if(!pic){
+            updatePara = {title:fields.title,desc:fields.desc,price:fields.price,kind:fields.kind}
         }else{
-            res.send({sucess:true})
+            var pic = files.upload.path;
+            var newpic = pic.replace("public","").replace(/\\/g,"/");
+            updatePara = {title:fields.title,desc:fields.desc,price:fields.price,pic:newpic,kind:fields.kind};
         }
-    })
+        var productModel = mongo.productModel('product');
+        productModel.update({_id:req.param('id')},updatePara,function(error,result){
+            if(error) {
+                console.log(error);
+                res.send({sucess:false})
+            }else{
+                res.send({sucess:true})
+            }
+        })
+    });
+
 }
 

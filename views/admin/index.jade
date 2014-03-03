@@ -23,6 +23,10 @@ html
                             div.selected
                                 a(href="#",onclick="javascript:product()")
                                     h2(style="color:#0099FF;") 产品管理
+                        li
+                            div.selected
+                                a(href="#",onclick="javascript:kind()")
+                                    h2(style="color:#0099FF;") 分类管理
 
         div#center(data-options="region:'center'",style="padding:5px;background:#eee;")
                 div#ctt(class="easyui-tabs")
@@ -60,6 +64,21 @@ html
 
                 }
             }
+
+           function kind(){
+                var kindlist = $('#ctt').tabs('exists','分类管理');
+                if(kindlist){
+                     $('#ctt').tabs('select','分类管理');
+                }else{
+                     $('#ctt').tabs('add',{
+                               title: '分类管理',
+                               selected: true,
+                               href:'/admin/kindindex',
+                               closable:true
+                     });
+
+                }
+           }
 
 
      style(type="text/css").

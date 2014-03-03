@@ -9,6 +9,10 @@ var routes = require('./routes');
 var adminlogin = require('./routes/admin_login.js');
 var adminuser = require('./routes/admin_user.js');
 var adminproduct = require('./routes/admin_product.js');
+var adminkind = require('./routes/admin_kind.js');
+
+
+var kind = require('./routes/kind.js');
 
 var http = require('http');
 var path = require('path');
@@ -64,6 +68,13 @@ app.post('/admin/productlist',adminproduct.adminProductList);
 app.post('/admin/addproduct',adminproduct.adminAddProduct);
 app.post('/admin/delproduct',adminproduct.adminDelProduct);
 app.post('/admin/updateproduct',adminproduct.adminUpdateProduct);
+
+app.get('/admin/kindindex',adminkind.adminKindIndex);
+app.post('/admin/kindlist',adminkind.adminKindList);
+app.post('/admin/addkind',adminkind.adminAddKind);
+app.post('/admin/delkind',adminkind.adminDelKind);
+app.post('/admin/updatekind',adminkind.adminUpdateKind);
+app.post("/getkindlist",kind.getKindList);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

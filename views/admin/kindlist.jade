@@ -1,0 +1,19 @@
+table#kindlist(title="分类列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",idField="_id",toolbar="#kindlisttoolbar")
+    thead
+        tr
+            th(field="name",width="100",editor="{type:'validatebox',options:{required:true}}") 分类名称
+div#kindlisttoolbar
+    a(href="javascript:void(0)",onclick="javascript:$('#kindlist').edatagrid('addRow')",class="easyui-linkbutton",iconCls="icon-add",plain="true") 新增
+    a(href="javascript:void(0)",onclick="javascript:$('#kindlist').edatagrid('destroyRow')",class="easyui-linkbutton",iconCls="icon-remove",plain="true") 删除
+    a(href="javascript:void(0)",onclick="javascript:$('#kindlist').edatagrid('saveRow')",class="easyui-linkbutton",iconCls="icon-add",plain="true") 保存
+    a(href="javascript:void(0)",onclick="javascript:$('#kindlist').edatagrid('cancelRow')",class="easyui-linkbutton",iconCls="icon-undo",plain="true") 取消
+script(type='text/javascript').
+               $(function(){
+                    $('#kindlist').edatagrid({
+                        url: '/admin/kindlist',
+                        saveUrl: '/admin/addkind',
+                        updateUrl: '/admin/updatekind',
+                        destroyUrl: '/admin/delkind'
+                     });
+               });
+

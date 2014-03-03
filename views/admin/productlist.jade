@@ -1,8 +1,10 @@
 table#productlist(title="商品列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",toolbar="#productlisttoolbar",url="/admin/productlist",idField="_id")
     thead
         tr
+            th(field="pic",formatter="formatPic") 商品图片
             th(field="title") 商品名称
             th(field="desc") 商品描述
+            th(field="kind",formatter="formatKind") 商品分类
             th(field="price") 商品价格
 div#productlisttoolbar
     a(href="javascript:void(0)",onclick="javascript:newProduct()",class="easyui-linkbutton",iconCls="icon-add",plain="true") 新增
@@ -18,6 +20,9 @@ div#addproduct(class="easyui-dialog",style="width:400px;height:280px;padding:10p
         div.fitem
             label 商品描述：
             textarea(name="desc",class="easyui-validatebox",required="true")
+        div.fitem
+            label 商品种类：
+            input(id="kindid",name="kind",class="easyui-combobox",data-options="valueField:'_id',textField:'name',url:'/getkindlist'")
         div.fitem
             label 商品价格：
             input(name="price",class="easyui-validatebox",required="true")
@@ -89,6 +94,14 @@ script(type='text/javascript').
             });
         }
     }
+
+     function formatPic(val, row) {
+          return '<img width="100" height="100" src="'+val+'"/>';
+     }
+
+     function formatKind(val,row){
+          return val.name;
+      }
 style(type='text/css').
     #addproductform {
         margin: 0;
