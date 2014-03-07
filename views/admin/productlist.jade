@@ -1,4 +1,4 @@
-table#productlist(title="商品列表",style="width:700px;height:250px",singleSelect="true",class="easyui-datagrid",rownumbers="true",toolbar="#productlisttoolbar",url="/admin/productlist",idField="_id")
+table#productlist(title="商品列表",style="width:700px;height:auto",singleSelect="true",class="easyui-datagrid",rownumbers="true",toolbar="#productlisttoolbar",url="/admin/productlist",idField="_id",pagination="true")
     thead
         tr
             th(field="pic",formatter="formatPic") 商品图片
@@ -11,7 +11,7 @@ div#productlisttoolbar
     a(href="javascript:void(0)",onclick="javascript:editProduct()",class="easyui-linkbutton",iconCls="icon-edit",plain="true") 修改
     a(href="javascript:void(0)",onclick="javascript:delProduct()",class="easyui-linkbutton",iconCls="icon-remove",plain="true") 删除
 
-div#addproduct(class="easyui-dialog",style="width:400px;height:280px;padding:10px 20px",closed="true",buttons="#addproductbutton")
+div#addproduct(class="easyui-dialog",style="width:400px;height:auto;padding:10px 20px",closed="true",buttons="#addproductbutton")
     div.ftitle 商品信息
     form#addproductform(method="post",enctype="multipart/form-data",novalidate)
         div.fitem

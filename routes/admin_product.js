@@ -22,11 +22,7 @@ exports.adminProductList = function(req, res){
             productModel.find(null,null,{skip:(page-1)*rows,limit:rows}).populate({path:'kind',model:'kind'}).exec(function (err, result) {
                 if(err) console.log(err);
                 res.send({"total":count,"rows":result});
-            })
-            /**
-            productModel.find(null,null,{skip:(page-1)*rows,limit:rows},function(error,result){
-            })
-            **/
+            });
         }
     });
 };
