@@ -50,12 +50,14 @@ exports.adminDelUser = function(req,res){
 
 exports.adminUpdateUser = function(req,res){
     var userModel = mongo.userModel('user');
-    userModel.findByIdAndUpdate(req.param('id'),{username:req.param('username'),pwd:req.param('pwd')},function(error,result){
+
+    userModel.findByIdAndUpdate(req.param('_id'),{username:req.param('username'),pwd:req.param('pwd')},function(error,result){
         if(error) {
             console.log(error);
         }else{
             res.send(result);
         }
     })
+
 }
 
