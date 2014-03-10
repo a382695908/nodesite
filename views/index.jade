@@ -15,6 +15,6 @@ html
             div(class="easyui-draggable",style="width:200px;height:200px;background:#fafafa;border:1px solid #ccc;margin-top:10px;margin-left:10px;float:left",data-options="handle:'#title#{index}'")
                 div(id="title#{index}",style="padding:5px;background:#ccc;color:#fff;height:10;text-overflow:ellipsis")=product.title.length > 10?product.title.substr(0,7):product.title
                 div
-                    img(src="#{product.pic}",style="width:200px;height:180px")
-
-
+                    a(href="javascript:void(0)")
+                        img(src="#{product.pic}",style="width:200px;height:180px")
+    script(type='text/javascript').
