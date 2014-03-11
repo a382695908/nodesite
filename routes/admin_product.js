@@ -86,4 +86,3 @@ exports.adminUpdateProduct = function(req,res){
     });
 
 }
-

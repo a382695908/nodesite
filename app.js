@@ -13,6 +13,7 @@ var adminkind = require('./routes/admin_kind.js');
 
 
 var kind = require('./routes/kind.js');
+var product = require('./routes/product.js');
 
 var http = require('http');
 var path = require('path');
@@ -75,6 +76,9 @@ app.post('/admin/addkind',adminkind.adminAddKind);
 app.post('/admin/delkind',adminkind.adminDelKind);
 app.post('/admin/updatekind',adminkind.adminUpdateKind);
 app.post("/getkindlist",kind.getKindList);
+
+
+app.get("/productdetail",product.productDetail);
 
 
 

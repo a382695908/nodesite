@@ -17,6 +17,19 @@ html
             div(class="easyui-draggable",style="width:200px;height:200px;background:#fafafa;border:1px solid #ccc;margin-top:10px;margin-left:10px;float:left",data-options="handle:'#title#{index}'")
                 div(id="title#{index}",style="padding:5px;background:#ccc;color:#fff;height:10;text-overflow:ellipsis")=product.title.length > 10?product.title.substr(0,7):product.title
                 div
-                    a(href="javascript:void(0)")
+                    a(href="javascript:void(0)",onclick="showDetail('#{product._id}')")
                         img(src="#{product.pic}",style="width:200px;height:180px")
+        div#sd(class="easyui-dialog",data-options="closed:true")
+
     script(type='text/javascript').
+         function showDetail(id){
+            $('#sd').dialog({
+                top:50,
+                title: '详细',
+                width: 800,
+                closed: false,
+                cache: false,
+                href: '/productdetail?id=' + id,
+                modal: true,
+            });
+         }
