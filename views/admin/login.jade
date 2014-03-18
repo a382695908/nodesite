@@ -35,9 +35,6 @@ html
                         $('#ff').form({
                             url:'/admin/login',
                             dataType:'json',
-                            onSubmit: function(){
-
-                            },
                             success:function(data){
                                 var data = eval('(' + data + ')');
                                 if(data.login === 0){
