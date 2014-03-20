@@ -50,7 +50,7 @@ exports.adminDelKind = function(req,res){
 
 
 exports.adminUpdateKind = function(req,res){
-    var kindModel = mongo.userModel('kind');
+    var kindModel = mongo.kindModel('kind');
     kindModel.findByIdAndUpdate(req.param('id'),{name:req.param('name')},function(error,result){
         if(error) {
             console.log(error);
